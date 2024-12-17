@@ -32,7 +32,7 @@
 
 - PUT /:id: Update a product by ID
 
-![Alt text](imgs/get-by-id.jpg)
+![Alt text](imgs/put.jpg)
 
 - DELETE /:id: Delete a product by ID
 
