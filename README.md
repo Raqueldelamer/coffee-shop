@@ -13,7 +13,7 @@
 - [x] Part 3: Implement Basic CRUD Operations
 - Setup the Routes directory and create the first route for the products.
 
-! [Alt text](imgs/instructions.png)
+![Alt text](imgs/instructions.png)
 
 ## **Create the Routes**
 - POST - Create a new Product
