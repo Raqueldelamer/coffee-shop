@@ -1,6 +1,6 @@
 // routes/products.js
 const Router = require("express").Router;
-const Product = require("../models/Product");  // Import the Product model
+const Product = require("../models/product");  // Import the Product model
 const productRoutes = Router();
 
 // Get all products
