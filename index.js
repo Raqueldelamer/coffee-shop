@@ -1,8 +1,13 @@
+const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const port = 3004;
+const auth = require(".middleware/auth");
+const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/users")
 const productRoutes = require("./routes/products");
+const path = require("path");
+const port = process.env.PORT || 3000;
 require("dotenv").config();
 
 // environment variable connecting to MongoDB
@@ -12,6 +17,9 @@ const MONGO_URL = process.env.MONGO_URL;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Serve static files
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Connect to MongoDB
 mongoose
@@ -28,6 +36,15 @@ mongoose
 
 // product routes
 app.use('/products', productRoutes);    
+
+//users route
+app.use("/users", auth, userRoutes);
+
+//auth routes
+app.use("/auth", authRoutes);
+
+//error handling middleware
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

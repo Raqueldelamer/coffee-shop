@@ -134,15 +134,27 @@ productRoutes.get("/", async (req, res) => {
 
 
 // Update a product by ID
-productRoutes.put("/:id", async (req, res) => {
-    const { name, description, price, category } = req.body;
+productRoutes.put("/:id", upload.single("image"), validateProduct, async (req, res) => {
+    const { name, description, price, category, stock } = req.body;
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
-            { name, description, price, category },
+            { name, description, price, category, stock },
             { new: true }  // Return the updated product
         );
+
+        // Check if the product exists
+        const existingProduct = await Product.findById(productId);
+            if (!existingProduct) {
+        return res.status(404).json({ error: "Product not found" });
+        }
+
+      // Update image URL only if a new file is provided
+        const imageUrl = existingProduct.imageUrl;
+            if (req.file && req.file.path) {
+            imageUrl = req.file.path;
+        }
 
         if (!updatedProduct) {
             return res.status(404).json({ error: "Product not found" });
@@ -152,7 +164,7 @@ productRoutes.put("/:id", async (req, res) => {
             message: "Product updated successfully",
             product: updatedProduct,
         });
-    } catch (err) {
+    } catch (error) {
         res.status(500).json({ error: "Failed to update product" });
     }
 });
