@@ -4,8 +4,8 @@ const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, default: "user", enum: ["user", "admin"] },
+    password: { type: String, required: true, minlength: [6, 'Password must be at least 6 characters.'] },
+    role: { type: String, enum: ["user", "admin"], default: "user" },
 });
 
 //Hash the password before saving the user
@@ -25,7 +25,7 @@ userSchema.pre("save", async function (next) {
 
 //Method to compare passwords
 userSchema.methods.comparePassword = async function (candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
+    return bcrypt.compare(candidatePassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);

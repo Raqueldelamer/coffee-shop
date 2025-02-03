@@ -2,20 +2,10 @@
 const express = require("express");
 const productRoutes = express.Router();
 const Product = require("../models/product");
-const upload = require("../middleware/upload");
+const upload = require("../middleware/uploads");
 const auth = require("../middleware/auth");
 const role = require("../middleware/role");
 const { validateProduct } = require("../middleware/validate");
-
-// Get all products
-productRoutes.get("/", async (req, res) => {
-    try {
-        const products = await Product.find();  // Fetch products
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ error: "Failed to fetch products" });
-    }
-});
 
 // // Create a new product w/ image upload (admin only)
 productRoutes.post(
@@ -104,7 +94,7 @@ productRoutes.get("/", async (req, res) => {
     try {
         const {
             page = 1,
-            limit = 10,
+            limit = 20,
             category,
             sortBy,
             sortOrder = "asc",

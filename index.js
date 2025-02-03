@@ -1,19 +1,18 @@
 const errorHandler = require("./middleware/errorHandler");
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
-const auth = require(".middleware/auth");
+const auth = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users")
 const productRoutes = require("./routes/products");
 const path = require("path");
-const port = process.env.PORT || 3000;
 require("dotenv").config();
 
 // environment variable connecting to MongoDB
 const MONGO_URL = process.env.MONGO_URL;
 
-
+const app = express();
+const port = process.env.PORT || 3002;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
