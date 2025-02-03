@@ -12,7 +12,7 @@ require("dotenv").config();
 const MONGO_URL = process.env.MONGO_URL;
 
 const app = express();
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3003;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
