@@ -1,7 +1,6 @@
 const multer = require("multer");
 const path = require("path");
-// const { storage } = require("../cloudinary");
-// const upload = multer({ storage });
+
 
 // Define storage settings (e.g., store files locally in the 'uploads' folder)
 const storage = multer.diskStorage({
