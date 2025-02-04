@@ -36,6 +36,8 @@ mongoose
     });
 
 // Routes setup
+app.post('/api/v1/users/register', userRoutes);
+app.post('/api/v1/users/login', userRoutes);
 app.use('/api/v1/products', productRoutes);  // Use '/api/v1/products' for product routes
 
 app.use("/users", auth, userRoutes); // Use the auth middleware here for user routes
