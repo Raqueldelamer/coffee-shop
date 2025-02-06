@@ -40,12 +40,12 @@ mongoose
 app.use('/products', productRoutes);    
 
 //users route
-app.use("/users", auth, userRoutes);
+app.use("/users", userRoutes);
 
 //auth routes
 app.use("/auth", authRoutes);
 
-app.delete('/api/v1/products/:id', (req,res) => {
+app.delete('/api/v2/products/:id', (req,res) => {
         const productId = req.params.id;
     });
 
