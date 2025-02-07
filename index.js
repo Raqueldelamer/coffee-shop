@@ -47,7 +47,7 @@ app.use("/users", userRoutes);
 //auth routes
 app.use("/auth", authRoutes);
 
-app.delete('/api/v2/admin/products/:id', async (req, res) => {
+app.delete('/api/v2/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
         const deletedProduct = await Product.findByIdAndDelete(productId);
