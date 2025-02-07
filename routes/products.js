@@ -7,10 +7,7 @@ const role = require("../middleware/role"); // Import role middleware here
 const { validateProduct } = require("../middleware/validate");
 
 // Create a new product with image upload (admin only)
-productRoutes.post(
-    "/",
-    auth,
-    role("admin"),  // only admins can add products
+productRoutes.post("/products", auth, role("admin"),  // only admins can add products
     upload.single("image"),
     validateProduct,
     async (req, res) => {
@@ -60,7 +57,7 @@ productRoutes.get("/:id", async (req, res) => {
 // Get all products with pagination and filter by category
 productRoutes.get("/", async (req, res) => {
     try {
-        const { page = 1, limit = 20, category, sortBy, sortOrder = "asc" } = req.query;
+        const { page = 1, limit = 50, category, sortBy, sortOrder = "asc" } = req.query;
         const filter = category ? { category } : {};
         const sort = sortBy ? { [sortBy]: sortOrder === "asc" ? 1 : -1 } : {};
 

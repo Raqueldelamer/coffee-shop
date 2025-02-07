@@ -20,6 +20,8 @@ const port = process.env.PORT || 3003;
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+app.use(cors());
+
 // Serve static files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -45,9 +47,21 @@ app.use("/users", userRoutes);
 //auth routes
 app.use("/auth", authRoutes);
 
-app.delete('/api/v2/products/:id', (req,res) => {
+app.delete('/api/v2/admin/products/:id', async (req, res) => {
+    try {
         const productId = req.params.id;
-    });
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+        if (!deletedProduct) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+        res.status(200).json({ message: "Product deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error", error });
+    }
+});
+//app.delete('/api/v2/products/:id', (req,res) => {
+//        const productId = req.params.id;
+ //   });
 
 //error handling middleware
 app.use(errorHandler);
