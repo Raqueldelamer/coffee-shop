@@ -7,6 +7,7 @@ const role = require("./middleware/role"); // Ensure role middleware is included
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const productRoutes = require("./routes/products");
+//const adminProductRoutes = require("./routes/adminProducts");
 const path = require("path");
 const cors = require('cors');
 require("dotenv").config();

@@ -1,5 +1,6 @@
 const express = require("express");
 const productRoutes = express.Router();
+//const adminProductRoutes = express.Router();
 const Product = require("../models/product");
 const upload = require("../middleware/uploads");
 const auth = require("../middleware/auth");
@@ -7,7 +8,8 @@ const role = require("../middleware/role"); // Import role middleware here
 const { validateProduct } = require("../middleware/validate");
 
 // Create a new product with image upload (admin only)
-productRoutes.post("/products", auth, role("admin"),  // only admins can add products
+productRoutes.post("/products", auth,
+    role("admin"),  // only admins can add products
     upload.single("image"),
     validateProduct,
     async (req, res) => {
